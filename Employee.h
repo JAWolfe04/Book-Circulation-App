@@ -12,6 +12,11 @@ private:
 
 public:
 	Employee();
+	Employee() {
+		EmployeeName = "";
+		WaitingTime = 0;
+		RetainingTime = 0;
+	}
 
 	void setName(string name){ EmployeeName = name; }      //inline getters and setters
 	void setWaitTime(int wtime) {	WaitingTime = wtime;}
@@ -21,6 +26,6 @@ public:
 	int getWaitTime() { return WaitingTime; }
 	int getRetainingTime() { return RetainingTime; }
 
-	~Employee();
+	//~Employee();
 
 };
