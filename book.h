@@ -16,14 +16,12 @@ public:
 	inline void setStartDate(string sDate) { StartDate = sDate; }
 	inline void setEndDate(string eDate) { EndDate = eDate; }
 
-	bool Is_Archived(string book);
+	//bool Is_Archived(string book);
 
 	inline string getEndDate() { return EndDate; }
 	inline string getStartDate() { return StartDate; }
-	inline bool Is_Archived() { return is_archived; }
+	inline bool Is_Archived(string book) { return is_archived; }
 
-
-
-	~book();
 };
+
 
