@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <queue>
+#include "Employee.h"
 using namespace std;
 
 class book
@@ -14,6 +16,8 @@ private:
 public:
 	book() : BookName(""), is_archived(true), StartDate(""), EndDate("") { }
 
+	queue<Employee> EmployeeQueue;
+
 	inline void setBookName(string bookname) { BookName = BookName;  }
 	inline void setStartDate(string sDate) { StartDate = sDate; }
 	inline void setEndDate(string eDate) { EndDate = eDate; }
@@ -26,4 +30,3 @@ public:
 	inline bool Is_Archived(string book) { return is_archived; }
 
 };
-
