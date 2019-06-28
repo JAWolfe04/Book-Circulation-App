@@ -15,6 +15,12 @@ public:
     // Default constructor sets to empty name and 
     // both waiting and retaining times to 0
     Employee() : EmployeeName(""), WaitingTime(0), RetainingTime(0) { }
+    Employee(string employeename)
+	{
+		EmployeeName = employeename;
+		WaitingTime = 0;
+		RetainingTime = 0;
+	};
 
     inline void setName(string name) { EmployeeName = name; }
     inline void setWaitTime(int wtime) { WaitingTime = wtime; }
