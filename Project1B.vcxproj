@@ -118,8 +118,12 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+
     <ClInclude Include="Date.h" />
     <ClInclude Include="StringTokenizer.h" />
+
+    <ClInclude Include="PriorityQueue.h" />
+
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
