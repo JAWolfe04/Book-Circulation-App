@@ -43,22 +43,6 @@ public:
 		else
 			return false;	};
 
-	bool operator<(const Employee& lhs, const Employee& rhs)
-	{
-		return lhs.WaitingTime < rhs.WaitingTime;
-	}
-	bool operator>(const Employee& lhs, const Employee& rhs)
-	{
-		return lhs.WaitingTime > rhs.WaitingTime;
-	}
-	bool operator>=(const Employee& lhs, const Employee& rhs)
-	{
-		return lhs.WaitingTime >= rhs.WaitingTime;
-	}
-	bool operator<=(const Employee& lhs, const Employee& rhs)
-	{
-		return lhs.WaitingTime <= rhs.WaitingTime;
-	}
 
 private:
 	// Data fields
