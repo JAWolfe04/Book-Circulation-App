@@ -1,6 +1,7 @@
+#include "Library.h"
+
 int main()
 {
-    /*
     Library library;
 
     library.add_book("Software Engineering");
@@ -21,7 +22,6 @@ int main()
     library.pass_on("Software Engineering", Date(2015, 4, 5, DateFormat::US));
     library.pass_on("Software Engineering", Date(2015, 4, 10, DateFormat::US));
     library.pass_on("Software Engineering", Date(2015, 4, 15, DateFormat::US));
-    */
 
     return 0;
 }
