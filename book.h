@@ -35,4 +35,3 @@ public:
     void pop_employee() { employee_queue.pop(); }
     void update_employee(Employee& employee) { employee_queue.update_item(employee); }
 };
-
