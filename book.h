@@ -14,7 +14,9 @@ private:
 	string EndDate;
 
 public:
-	book() : BookName(""), is_archived(true), StartDate(""), EndDate("") { }
+	//book : BookName(string bookname), is_archived(false), StartDate(""), EndDate("") { }
+	book() : BookName(""), is_archived(false), StartDate(""), EndDate("") { }
+
 
 	queue<Employee> EmployeeQueue;
 
@@ -30,3 +32,4 @@ public:
 	inline bool Is_Archived(string book) { return is_archived; }
 
 };
+
