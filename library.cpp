@@ -1,41 +1,68 @@
-#include "library.h"
-#include <iterator>
-#include <algorithm>
+#include "Library.h"
+#include "Book.h"
+#include "Employee.h"
 
+#include <string>
+#include <list>
 
-void library::add_book(string bookname)
+void Library::add_book(std::string book_name)
 {
-	Circulated_Book.push_back(book(bookname));
+    circulated_books.push_back(Book(book_name));
 }
 
-void library::add_employee(string employeename)
+void Library::add_employee(std::string employee_name)
 {
-	Employees.push_back(Employee(employeename));
+    employees.push_back(Employee(employee_name));
 }
 
-string library::getBook(string bookname)
+Book* Library::get_book(std::string book_name)
 {
-	/*list<string>::iterator it;                              //i cant figure out how to get this to work
+    std::list<Book>::iterator itr = find(circulated_books.begin(), circulated_books.end(), book_name);
 
-	it = std::find(Circulated_Book.begin(), book.end(), bookname);
-
-	return *it;*/
-
-	std::list<book>::iterator result = Circulated_Book.begin();
-	while (true) {
-		result = std::find_if(result, Circulated_Book.end(), std::bind2nd(BookNumber(), number));
-		if (result == Circulated_Book.end())
-			break;
-
-	}
-	return *result;
-	
+    if (itr == circulated_books.end())
+        throw std::exception("No book of that name found");
+    else
+        return &(*itr);
 }
 
-void library::circulate_book(string bookname, int date)
+Employee * Library::get_employee(Employee& employee)
 {
+    //TODO: Like the get_book function but for the employees list
+    return nullptr;
 }
 
-void library::pass_on(string bookname, int date)
+void Library::circulate_book(std::string book_name, Date date)
 {
+    Book* book = get_book(book_name);
+    book->set_start_date(date);
+    book->set_last_passed_date(date);
+
+    std::list<Employee>::iterator itr = employees.begin();
+    for (itr; itr != employees.end(); ++itr)
+        book->push_employee(*itr);
+}
+
+void Library::pass_on(std::string book_name, Date date)
+{
+    /*TODO: - Get book from name and set it as a variable, book
+            - Use get_employee function with the front of the queue
+              and set it as a variable, front_employee
+
+            - Update book retaining time for front_employee by
+              setting the retaining time to date - book->last_pass_date
+
+            - Pop off the first item in the book queue using pop
+            - Use update_employee for every book in circulated_books
+              with front_employee
+
+            - If the queue is now empty, set book->is_archived to true, 
+              set book->end_date to date, remove book from circulated_books
+              and add to archived_books then return
+
+            - Set the front_employee again using the same method as before
+            - Update book waiting time for front_employee by
+              setting the waiting time to date - book->start_date
+            - Use update_employee for every book in circulated_books
+              with front_employee again
+    */
 }

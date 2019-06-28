@@ -1,35 +1,38 @@
 #pragma once
 
-#include <string>
-#include <queue>
+#include "PriorityQueue.h"
+#include "Date.h"
 #include "Employee.h"
-using namespace std;
 
-class book
+#include <string>
+
+class Book
 {
 private:
-	string BookName;
-	bool is_archived;
-	string StartDate;
-	string EndDate;
+    std::string book_name;
+    bool is_archived;
+    Date start_date;
+    Date last_passed_date;
+    Date end_date;
+    priority_queue<Employee> employee_queue;
 
 public:
-	//book : BookName(string bookname), is_archived(false), StartDate(""), EndDate("") { }
-	book() : BookName(""), is_archived(false), StartDate(""), EndDate("") { }
+    Book() : book_name(""), is_archived(false) { }
+    Book(string& book_name) : book_name(book_name), is_archived(false) { }
 
+    inline void set_book_name(std::string& book_name) { this->book_name = book_name;  }
+    inline void set_start_date(Date& start_date) { this->start_date = start_date; }
+    inline void set_last_passed_date(Date& pass_date) { this->last_passed_date = pass_date; }
+    inline void set_end_date(Date& end_date) { this->end_date = end_date; }
 
-	queue<Employee> EmployeeQueue;
-
-	inline void setBookName(string bookname) { BookName = BookName;  }
-	inline void setStartDate(string sDate) { StartDate = sDate; }
-	inline void setEndDate(string eDate) { EndDate = eDate; }
-
-	//bool Is_Archived(string book);
-
-	inline string getBookName() { return BookName; }
-	inline string getEndDate() { return EndDate; }
-	inline string getStartDate() { return StartDate; }
-	inline bool Is_Archived(string book) { return is_archived; }
-
+    inline std::string& get_book_name() { return book_name; }
+    inline Date& get_end_date() { return end_date; }
+    inline Date& get_last_pass_date() { return last_passed_date; }
+    inline Date& get_start_date() { return start_date; }
+    inline bool is_book_archived() { return is_archived; }
+    inline bool operator==(std::string name) { return book_name == name; }
+    void push_employee(Employee& employee) { employee_queue.push(employee); }
+    void pop_employee() { employee_queue.pop(); }
+    void update_employee(Employee& employee) { employee_queue.update_item(employee); }
 };
 

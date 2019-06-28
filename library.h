@@ -1,22 +1,26 @@
 #pragma once
 
-#include <list>
-#include "book.h"
+#include "Date.h"
+#include "Book.h"
 #include "Employee.h"
-class library
+
+#include <list>
+#include <string>
+
+class Library
 {
 private:
-	list<book> Circulated_Book;
-	list<book> Archived_Books;
-	list<Employee> Employees;
+    std::list<Book> circulated_books;
+    std::list<Book> archived_books;
+    std::list<Employee> employees;
 
 public:
-	void add_book(string bookname);
-	void add_employee(string employeename);
+    void add_book(std::string book_name);
+    void add_employee(std::string employee_name);
 
-	string getBook(string bookname);
-	void circulate_book(string bookname, int date);
-	void pass_on(string bookname, int date);
-	
+    Book* get_book(std::string book_name);
+    Employee* get_employee(Employee& employee);
+    void circulate_book(std::string book_name, Date date);
+    void pass_on(std::string book_name, Date date);
 };
 
