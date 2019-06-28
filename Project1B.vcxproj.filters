@@ -20,7 +20,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+
+    <ClInclude Include="Date.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StringTokenizer.h">
+
     <ClInclude Include="PriorityQueue.h">
+
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
