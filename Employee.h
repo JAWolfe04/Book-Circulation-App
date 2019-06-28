@@ -23,4 +23,22 @@ public:
     inline string getName() { return EmployeeName; }
     inline int getWaitTime() { return WaitingTime; }
     inline int getRetainingTime() { return RetainingTime; }
+    
+    bool operator<(const Employee& lhs, const Employee& rhs)
+	{
+		return lhs.WaitingTime < rhs.WaitingTime;
+	}
+	bool operator>(const Employee& lhs, const Employee& rhs)
+	{
+		return lhs.WaitingTime > rhs.WaitingTime;
+	}
+	bool operator>=(const Employee& lhs, const Employee& rhs)
+	{
+		return lhs.WaitingTime >= rhs.WaitingTime;
+	}
+	bool operator<=(const Employee& lhs, const Employee& rhs)
+	{
+		return lhs.WaitingTime <= rhs.WaitingTime;
+	}
+    
 };
