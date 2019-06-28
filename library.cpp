@@ -15,7 +15,7 @@ void library::add_employee(string employeename)
 
 string library::getBook(string bookname)
 {
-	/*list<string>::iterator it;
+	/*list<string>::iterator it;                              //i cant figure out how to get this to work
 
 	it = std::find(Circulated_Book.begin(), book.end(), bookname);
 
