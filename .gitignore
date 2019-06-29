@@ -34,3 +34,4 @@
 # Client Files
 *.vs
 *.user
+*Debug
