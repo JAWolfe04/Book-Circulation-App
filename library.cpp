@@ -57,7 +57,7 @@ void Library::circulate_book(std::string book_name, Date date)
 }
 
 //Passes book from one employee to the next
-//Efficiency: O(n)
+//Efficiency: O(n^2)
 void Library::pass_on(std::string book_name, Date date)
 {
 
