@@ -60,15 +60,16 @@ void Library::circulate_book(std::string book_name, Date date)
 //Efficiency: O(n^2)
 void Library::pass_on(std::string book_name, Date date)
 {
-
 	Book* book = get_book(book_name);
 	Employee front = book->front_employee();
 	Employee* front_employee = get_employee(front);
-	front_employee->setRetainingTime(date - book->get_last_pass_date()); //update retaining time for employee who last had book
+    int retain_time = (date - book->get_last_pass_date()) + front_employee->getRetainingTime();
+	front_employee->setRetainingTime(retain_time); //update retaining time for employee who last had book
+    book->set_last_passed_date(date);
 	book->pop_employee();
 
 	//update employee's retaining time in each book's queue
-	for (std::list<Book>::iterator itr = circulated_books.begin(); itr != circulated_books.end(); itr++) {
+	for (std::list<Book>::iterator itr = circulated_books.begin(); itr != circulated_books.end(); ++itr) {
 		itr->update_employee(*front_employee);
 	}
 
@@ -76,16 +77,18 @@ void Library::pass_on(std::string book_name, Date date)
 	if (book->is_empty()) {
 		book->archive();
 		book->set_end_date(date);
+        archived_books.push_back(*book);
 		circulated_books.remove(*book);
-		archived_books.push_back(*book);
 		return;
 	}
 
 	//Set new front employee's wait time and update in each book
 	Employee front2 = book->front_employee();
+    front = book->front_employee();
 	Employee* front_employee2 = get_employee(front);
-	front_employee2->setWaitTime(date - book->get_start_date());
-	for (std::list<Book>::iterator itr = circulated_books.begin(); itr != circulated_books.end(); itr++) {
+    int wait_time = (date - book->get_start_date()) + front_employee2->getWaitTime();
+	front_employee2->setWaitTime(wait_time);
+	for (std::list<Book>::iterator itr = circulated_books.begin(); itr != circulated_books.end(); ++itr) {
 		itr->update_employee(*front_employee2);
 	}
 }

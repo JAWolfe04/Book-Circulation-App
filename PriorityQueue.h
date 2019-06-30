@@ -3,16 +3,34 @@
 template<typename Item_Type>
 class priority_queue {
 public:
-    priority_queue() : num_items(0), front_index(0), back_index(-1),
+    // Default Constructor initializes 
+    priority_queue() : num_items(0), front_index(0), back_index(0),
         capacity(DEFAULT_CAPACITY), the_data(new Item_Type[capacity]) {}
 
-//Efficiency: O(1) (2 simple statements, so the expression is constant)
+    //Efficiency: O(n)
+    priority_queue<Item_Type>(const priority_queue<Item_Type>& other) 
+        : capacity(other.capacity), num_items(other.num_items),
+          front_index(other.front_index), back_index(other.back_index),
+          the_data(new Item_Type[other.capacity])
+    { 
+        for (size_t i = 0; i < num_items; i++)
+            the_data[i] = other.the_data[i];
+    }
+
+    //Efficiency: O(1)
+    ~priority_queue()
+    {
+        delete[] the_data;
+        the_data = nullptr;
+    }
+
+    //Efficiency: O(1) (2 simple statements, so the expression is constant)
     void pop() {
         front_index = (front_index + 1) % capacity;
         num_items--;
     };
 
-//Efficiency: O(n)
+    //Efficiency: O(n)
     void push(const Item_Type item) {
         if (num_items == capacity)
             reallocate();
@@ -32,12 +50,15 @@ public:
         }
         num_items++;
         the_data[(front_index + i) % capacity] = item; //insert your element
-        back_index = (back_index + 1) % capacity; //adjust back index
+        // Moving the back index when there is only 1 item in the queue moves it 
+        // to an empty index instead of the last item index
+        if (num_items > 1)
+            back_index = (back_index + 1) % capacity; //adjust back index
     };
 
-//Efficiency: O(n) 
+    //Efficiency: O(n) 
     void update_item(Item_Type& item) {
-        size_t index = 0, i = 0;
+        size_t index = 0, new_index = 0, i = 0;
         for (i; i < num_items; ++i) {
             index = (front_index + i) % capacity;
             if (item == the_data[index])
@@ -46,14 +67,30 @@ public:
         if (i < num_items) {
             if (item > the_data[index]) {
                 the_data[index] = item;
-                while (index > 0 && the_data[index] > the_data[index - 1])
-                    swap(the_data[index], the_data[--index]);
+                for (size_t j = i; j > 0; --j)
+                {
+                    index = (front_index + j) % capacity;
+                    new_index = (front_index + j - 1) % capacity;
+                    if (the_data[index] > the_data[new_index])
+                        swap(the_data[index], the_data[new_index]);
+                    else
+                        break;
+                }
             }
             else if (item < the_data[index]) {
                 the_data[index] = item;
-                while (index < (num_items - 1) && the_data[index] < the_data[index + 1])
-                    swap(the_data[index], the_data[++index]);
+                for (size_t j = i; j < num_items - 1; ++j)
+                {
+                    index = (front_index + j) % capacity;
+                    new_index = (front_index + j + 1) % capacity;
+                    if (the_data[index] < the_data[new_index])
+                        swap(the_data[index], the_data[new_index]);
+                    else
+                        break;
+                }
             }
+            else
+                the_data[index] = item;
         }
     }
 

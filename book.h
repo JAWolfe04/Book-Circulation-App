@@ -40,6 +40,7 @@ public:
 
 	//overloaded equality operator, determines whether the book's name is equal to a given string
 	inline bool operator==(std::string name) { return book_name == name; }
+    friend bool operator==(const Book& lhs, const Book& rhs) { return lhs.book_name == rhs.book_name; }
 
 	//Priority queue functions used on the employee queue
 	void push_employee(Employee& employee) { employee_queue.push(employee); }

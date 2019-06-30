@@ -1,5 +1,6 @@
 #include "Library.h"
 
+// Assumes that each book and employee has a unique name
 int main()
 {
     Library library;

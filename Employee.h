@@ -34,7 +34,5 @@ public:
 	}
 
 	//overloaded equality operator, determines whether the 2 employee names are the same
-	bool operator==(const Employee& rhs) const {
-		return EmployeeName == rhs.EmployeeName;
-	}
+	bool operator==(const Employee& rhs) const { return EmployeeName == rhs.EmployeeName; }
 };
