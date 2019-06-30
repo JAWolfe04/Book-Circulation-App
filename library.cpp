@@ -5,64 +5,81 @@
 #include <string>
 #include <list>
 
+//Adds new book to the list of circulated books
 void Library::add_book(std::string book_name)
 {
-    circulated_books.push_back(Book(book_name));
+	circulated_books.push_back(Book(book_name));
 }
 
+//Adds new employee to the employee list
 void Library::add_employee(std::string employee_name)
 {
-    employees.push_back(Employee(employee_name));
+	employees.push_back(Employee(employee_name));
 }
 
+//Searches the circulated book list for a book and returns a pointer to it if found
 Book* Library::get_book(std::string book_name)
 {
-    std::list<Book>::iterator itr = find(circulated_books.begin(), circulated_books.end(), book_name);
+	std::list<Book>::iterator itr = find(circulated_books.begin(), circulated_books.end(), book_name);
 
-    if (itr == circulated_books.end())
-        throw std::exception("No book of that name found");
-    else
-        return &(*itr);
+	if (itr == circulated_books.end())
+		throw std::exception("No book of that name found");
+	else
+		return &(*itr);
 }
 
-Employee * Library::get_employee(Employee& employee)
+//Searches the employee list for an employee and returns a pointer to it if found
+Employee* Library::get_employee(Employee& employee)
 {
-    //TODO: Like the get_book function but for the employees list
-    return nullptr;
+	std::list<Employee>::iterator itr = find(employees.begin(), employees.end(), employee);
+
+	if (itr == employees.end())
+		throw std::exception("No employee of that name found");
+	else
+		return &(*itr);
 }
 
+//Puts book in circulation by setting the start date and adding all employees to the book's queue
 void Library::circulate_book(std::string book_name, Date date)
 {
-    Book* book = get_book(book_name);
-    book->set_start_date(date);
-    book->set_last_passed_date(date);
+	Book* book = get_book(book_name);
+	book->set_start_date(date);
+	book->set_last_passed_date(date);
 
-    std::list<Employee>::iterator itr = employees.begin();
-    for (itr; itr != employees.end(); ++itr)
-        book->push_employee(*itr);
+	std::list<Employee>::iterator itr = employees.begin();
+	for (itr; itr != employees.end(); ++itr)
+		book->push_employee(*itr);
 }
 
+//Passes book from one employee to the next
 void Library::pass_on(std::string book_name, Date date)
 {
-    /*TODO: - Get book from name and set it as a variable, book
-            - Use get_employee function with the front of the queue
-              and set it as a variable, front_employee
 
-            - Update book retaining time for front_employee by
-              setting the retaining time to date - book->last_pass_date
+	Book* book = get_book(book_name);
+	Employee front = book->front_employee();
+	Employee* front_employee = get_employee(front);
+	front_employee->setRetainingTime(date - book->get_last_pass_date()); //update retaining time for employee who last had book
+	book->pop_employee();
 
-            - Pop off the first item in the book queue using pop
-            - Use update_employee for every book in circulated_books
-              with front_employee
+	//update employee's retaining time in each book's queue
+	for (std::list<Book>::iterator itr = circulated_books.begin(); itr != circulated_books.end(); itr++) {
+		itr->update_employee(*front_employee);
+	}
 
-            - If the queue is now empty, set book->is_archived to true, 
-              set book->end_date to date, remove book from circulated_books
-              and add to archived_books then return
+	//if book's queue is empty, archive the book and exit
+	if (book->is_empty()) {
+		book->archive();
+		book->set_end_date(date);
+		circulated_books.remove(*book);
+		archived_books.push_back(*book);
+		return;
+	}
 
-            - Set the front_employee again using the same method as before
-            - Update book waiting time for front_employee by
-              setting the waiting time to date - book->start_date
-            - Use update_employee for every book in circulated_books
-              with front_employee again
-    */
+	//Set new front employee's wait time and update in each book
+	Employee front2 = book->front_employee();
+	Employee* front_employee2 = get_employee(front);
+	front_employee2->setWaitTime(date - book->get_start_date());
+	for (std::list<Book>::iterator itr = circulated_books.begin(); itr != circulated_books.end(); itr++) {
+		itr->update_employee(*front_employee2);
+	}
 }
