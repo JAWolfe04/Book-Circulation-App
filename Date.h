@@ -12,7 +12,6 @@
 #include "StringTokenizer.h"
 #include <sstream>
 #include <iomanip>
-using namespace std;
 
 const int DAYS[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }; //number of days in the 12 months
 
@@ -25,7 +24,7 @@ public:
     Date(DateFormat format = DateFormat::US) :format(format) {}
 
 
-    Date(string date, DateFormat format = DateFormat::US) :format(format) {
+    Date(std::string date, DateFormat format = DateFormat::US) :format(format) {
         year = 1; month = 1; day = 1;
         *this = parseDate(date, format);
     }
@@ -41,17 +40,17 @@ public:
     }
 
     /* return a string that represents the date*/
-    string toString() const {
+    std::string toString() const {
         switch (format) {
         case DateFormat::US:
-            return to_string(month) + "/" + to_string(day) + "/" + to_string(year);
+            return std::to_string(month) + "/" + std::to_string(day) + "/" + std::to_string(year);
         case DateFormat::Standard:
-            return to_string(year) + "/" + to_string(month) + "/" + to_string(day);
+            return std::to_string(year) + "/" + std::to_string(month) + "/" + std::to_string(day);
         }
     }
 
     /* parse a date according to a given format*/
-    static Date parseDate(const string& date, DateFormat format) {
+    static Date parseDate(const std::string& date, DateFormat format) {
 
         String_Tokenizer st(date, "-/,");
         int year = 1, month = 1, day = 1;
@@ -97,7 +96,7 @@ public:
     }
 
     //this function allows the user to get a date from the user
-    friend istream& operator >> (istream& in, Date& d) {
+    friend std::istream& operator >> (std::istream& in, Date& d) {
         std::string date;
         in >> date;
         d = parseDate(date, d.format);

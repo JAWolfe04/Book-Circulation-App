@@ -2,7 +2,7 @@
 #include <string>
 
 // Manages employee name, book waiting time and retention time
-// All functions are O(1)
+// All methods are O(1)
 class Employee
 {
 private:
@@ -15,17 +15,17 @@ public:
     Employee() : employeeName(""), waitingTime(0), retainingTime(0) { }
 
     // Creates a new employee with the given name and initializes both waiting and retaining times to 0
-    Employee(string employeeName) : employeeName(employeeName), waitingTime(0), retainingTime(0) {}
+    Employee(std::string employeeName) : employeeName(employeeName), waitingTime(0), retainingTime(0) {}
 
     // Setters for employee name, wait time, and retaining time
 
-    inline void setName(string name) { employeeName = name; }
+    inline void setName(std::string name) { employeeName = name; }
     inline void setWaitTime(int wTime) { waitingTime = wTime; }
     inline void setRetainingTime(int rTime) { retainingTime = rTime; }
 
     // Getters for employee name, wait time, and retaining time
 
-    inline string getName() { return employeeName; }
+    inline std::string getName() { return employeeName; }
     inline int getWaitTime() { return waitingTime; }
     inline int getRetainingTime() { return retainingTime; }
 

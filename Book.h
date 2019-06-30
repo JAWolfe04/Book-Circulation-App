@@ -1,52 +1,65 @@
 #pragma once
-
 #include "PriorityQueue.h"
 #include "Date.h"
 #include "Employee.h"
 
 #include <string>
 
+// Manages book name, archive status, circulation start date, circulation end date and employee queue
+// All methods O(1) unless specified
 class Book
 {
 private:
-    std::string book_name;
-    bool is_archived;
-    Date start_date;
-    Date last_passed_date;
-    Date end_date;
-    priority_queue<Employee> employee_queue;
+    std::string bookName; // Book name
+    bool isArchived; // Whether book has been archived
+    Date startDate; // Date the book begain circulating
+    Date lastPassedDate; // Date the book was last passed to another employee
+    Date endDate; // Date book was removed from circulation
+    priority_queue<Employee> employeeQueue; // Queue of employees waiting for the book
 
 public:
-    Book() : book_name(""), is_archived(false) { }
-    Book(string& book_name) : book_name(book_name), is_archived(false) { }
+    // Default constructor sets a blank name and sets the book to not archived
+    Book() : bookName(""), isArchived(false) { }
+    // Creates a book of the given name and sets the book to not archived
+    Book(std::string& book_name) : bookName(book_name), isArchived(false) { }
 
     //Setters for book name, start date, date that the book was last passed, and end date
-    inline void set_book_name(std::string& book_name) { this->book_name = book_name; }
-    inline void set_start_date(Date& start_date) { this->start_date = start_date; }
-    inline void set_last_passed_date(Date& pass_date) { this->last_passed_date = pass_date; }
-    inline void set_end_date(Date& end_date) { this->end_date = end_date; }
+
+    inline void setBookName(std::string& bookName) { this->bookName = bookName; }
+    inline void setStartDate(Date& startDate) { this->startDate = startDate; }
+    inline void setLastPassedDate(Date& passDate) { this->lastPassedDate = passDate; }
+    inline void setEndDate(Date& endDate) { this->endDate = endDate; }
 
     //Used in the process of archiving the book - sets the archive variable to true
-    inline void archive() { this->is_archived = true; }
+    inline void archive() { this->isArchived = true; }
 
     //Getters for book name, start date, date that the book was last passed, and end date
-    inline std::string& get_book_name() { return book_name; }
-    inline Date& get_end_date() { return end_date; }
-    inline Date& get_last_pass_date() { return last_passed_date; }
-    inline Date& get_start_date() { return start_date; }
+
+    inline std::string& getBookName() { return bookName; }
+    inline Date& getEndDate() { return endDate; }
+    inline Date& getLastPassDate() { return lastPassedDate; }
+    inline Date& getStartDate() { return startDate; }
 
     //Returns whether the book is archived currently
-    inline bool is_book_archived() { return is_archived; }
+    inline bool isBookArchived() { return isArchived; }
 
-    //overloaded equality operator, determines whether the book's name is equal to a given string
-    inline bool operator==(std::string name) { return book_name == name; }
-    friend bool operator==(const Book& lhs, const Book& rhs) { return lhs.book_name == rhs.book_name; }
+    // Determines whether the book's name is equal to a given string
+    inline bool operator==(std::string name) { return bookName == name; }
 
-    //Priority queue functions used on the employee queue
-    void push_employee(Employee& employee) { employee_queue.push(employee); }
-    void pop_employee() { employee_queue.pop(); }
-    void update_employee(Employee& employee) { employee_queue.update_item(employee); }
-    Employee front_employee() { return employee_queue.front(); }
-    bool is_empty() { return (employee_queue.isEmpty()); }
+    // Determines whether 2 Books are the same book by comparing names
+    // Assumes every book has a unique name
+    friend bool operator==(const Book& lhs, const Book& rhs) { return lhs.bookName == rhs.bookName; }
 
+    // Adds an employee to the book queue
+    // O(n) because of priority queue push
+    void pushEmployee(Employee& employee) { employeeQueue.push(employee); }
+    // Removes the employee at the front of the book queue
+    void popEmployee() { employeeQueue.pop(); }
+    // Updates the given employee's data in the book queue and adjusts the queue order accordingly
+    // O(n) because of priority queue updateItem
+    void updateEmployee(Employee& employee) { employeeQueue.update_item(employee); }
+    // Returns the employee at the front of the book queue
+    Employee frontEmployee() { return employeeQueue.front(); }
+    // Returns whether the book queue is empty
+    bool isEmpty() { return (employeeQueue.isEmpty()); }
 };

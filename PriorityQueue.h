@@ -72,7 +72,7 @@ public:
                     index = (front_index + j) % capacity;
                     new_index = (front_index + j - 1) % capacity;
                     if (the_data[index] > the_data[new_index])
-                        swap(the_data[index], the_data[new_index]);
+                        std::swap(the_data[index], the_data[new_index]);
                     else
                         break;
                 }
@@ -84,7 +84,7 @@ public:
                     index = (front_index + j) % capacity;
                     new_index = (front_index + j + 1) % capacity;
                     if (the_data[index] < the_data[new_index])
-                        swap(the_data[index], the_data[new_index]);
+                        std::swap(the_data[index], the_data[new_index]);
                     else
                         break;
                 }
