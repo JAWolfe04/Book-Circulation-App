@@ -2,37 +2,45 @@
 #include <string>
 
 // Manages employee name, book waiting time and retention time
+// All functions are O(1)
 class Employee
 {
 private:
-	std::string EmployeeName; // Name of the employee
-	int WaitingTime; // Days the employee waited to get a book since circulation began
-	int RetainingTime; // Days the employee retained books
+    std::string employeeName; // Name of the employee
+    int waitingTime; // Days the employee waited to get a book since circulation began
+    int retainingTime; // Days the employee retained books
 
 public:
-	// Default constructor sets to empty name and 
-	// both waiting and retaining times to 0
-	Employee() : EmployeeName(""), WaitingTime(0), RetainingTime(0) { }
-	Employee(string employeename) : EmployeeName(employeename), WaitingTime(0), RetainingTime(0) {}
+    // Default constructor sets to empty name and initializes both waiting and retaining times to 0
+    Employee() : employeeName(""), waitingTime(0), retainingTime(0) { }
 
-	//setters for employee name, wait time, and retaining time
-	inline void setName(string name) { EmployeeName = name; }
-	inline void setWaitTime(int wtime) { WaitingTime = wtime; }
-	inline void setRetainingTime(int rtime) { RetainingTime = rtime; }
+    // Creates a new employee with the given name and initializes both waiting and retaining times to 0
+    Employee(string employeeName) : employeeName(employeeName), waitingTime(0), retainingTime(0) {}
 
-	//getters for employee name, wait time, and retaining time
-	inline string getName() { return EmployeeName; }
-	inline int getWaitTime() { return WaitingTime; }
-	inline int getRetainingTime() { return RetainingTime; }
+    // Setters for employee name, wait time, and retaining time
 
-	//Overloaded less than and greater than operators, compare wait and retention times to determine priority
-	bool operator<(const Employee& rhs) const {
-		return (WaitingTime - RetainingTime) < (rhs.WaitingTime - rhs.RetainingTime);
-	}
-	bool operator>(const Employee& rhs) const {
-		return (WaitingTime - RetainingTime) > (rhs.WaitingTime - rhs.RetainingTime);
-	}
+    inline void setName(string name) { employeeName = name; }
+    inline void setWaitTime(int wTime) { waitingTime = wTime; }
+    inline void setRetainingTime(int rTime) { retainingTime = rTime; }
 
-	//overloaded equality operator, determines whether the 2 employee names are the same
-	bool operator==(const Employee& rhs) const { return EmployeeName == rhs.EmployeeName; }
+    // Getters for employee name, wait time, and retaining time
+
+    inline string getName() { return employeeName; }
+    inline int getWaitTime() { return waitingTime; }
+    inline int getRetainingTime() { return retainingTime; }
+
+    // Compares 2 employees by comparing the time they have been waiting for a book
+    // versus the time they have retained a book
+    bool operator<(const Employee& rhs) const {
+        return (waitingTime - retainingTime) < (rhs.waitingTime - rhs.retainingTime);
+    }
+
+    // Compares 2 employees by comparing the time they have been waiting for a book
+    // versus the time they have retained a book
+    bool operator>(const Employee& rhs) const {
+        return (waitingTime - retainingTime) > (rhs.waitingTime - rhs.retainingTime);
+    }
+
+    // Determines whether 2 Employees are the same; assumes every employee has a unique name
+    bool operator==(const Employee& rhs) const { return employeeName == rhs.employeeName; }
 };
