@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------------------
 // Taken from String_Tokenizer.h provided by Mohammad Kuhail, kuhailm@umkc.edu
-// Alterations we done to conform to the scope of the project 
+// Alterations were done to conform to the scope of the project 
 //---------------------------------------------------------------------------------------
 #pragma once
 
