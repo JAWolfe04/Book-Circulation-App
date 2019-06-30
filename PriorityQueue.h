@@ -6,11 +6,13 @@ public:
     priority_queue() : num_items(0), front_index(0), back_index(-1),
         capacity(DEFAULT_CAPACITY), the_data(new Item_Type[capacity]) {}
 
+//Efficiency: O(1) (2 simple statements, so the expression is constant)
     void pop() {
         front_index = (front_index + 1) % capacity;
         num_items--;
     };
 
+//Efficiency: O(n)
     void push(const Item_Type item) {
         if (num_items == capacity)
             reallocate();
@@ -33,6 +35,7 @@ public:
         back_index = (back_index + 1) % capacity; //adjust back index
     };
 
+//Efficiency: O(n) 
     void update_item(Item_Type& item) {
         size_t index = 0, i = 0;
         for (i; i < num_items; ++i) {
@@ -68,6 +71,7 @@ private:
     Item_Type* the_data;
 
     //Private functions
+    //Efficiency: O(n)
     void reallocate() {
         size_t new_capacity = 2 * capacity;
         Item_Type* new_data = new Item_Type[new_capacity];
