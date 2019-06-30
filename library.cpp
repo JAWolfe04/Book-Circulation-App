@@ -6,11 +6,13 @@
 #include <list>
 
 //Adds new book to the list of circulated books
+//Efficiency: O(n) (see priority queue)
 void Library::add_book(std::string book_name)
 {
 	circulated_books.push_back(Book(book_name));
 }
 
+//Efficiency: O(n) (see priority queue)
 //Adds new employee to the employee list
 void Library::add_employee(std::string employee_name)
 {
@@ -18,6 +20,7 @@ void Library::add_employee(std::string employee_name)
 }
 
 //Searches the circulated book list for a book and returns a pointer to it if found
+//Efficiency: O(n) (the iterator goes through n books to find the book)
 Book* Library::get_book(std::string book_name)
 {
 	std::list<Book>::iterator itr = find(circulated_books.begin(), circulated_books.end(), book_name);
@@ -29,6 +32,7 @@ Book* Library::get_book(std::string book_name)
 }
 
 //Searches the employee list for an employee and returns a pointer to it if found
+//Efficiency: O(n) (the iterator goes through n employees to find the employee)
 Employee* Library::get_employee(Employee& employee)
 {
 	std::list<Employee>::iterator itr = find(employees.begin(), employees.end(), employee);
@@ -40,6 +44,7 @@ Employee* Library::get_employee(Employee& employee)
 }
 
 //Puts book in circulation by setting the start date and adding all employees to the book's queue
+//Efficiency: O(n)
 void Library::circulate_book(std::string book_name, Date date)
 {
 	Book* book = get_book(book_name);
@@ -52,6 +57,7 @@ void Library::circulate_book(std::string book_name, Date date)
 }
 
 //Passes book from one employee to the next
+//Efficiency: O(n)
 void Library::pass_on(std::string book_name, Date date)
 {
 
