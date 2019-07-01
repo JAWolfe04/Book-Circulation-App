@@ -19,7 +19,6 @@ public:
     void addEmployee(std::string employeeName);
 
     Book* getBook(std::string bookName);
-    Employee* getEmployee(Employee& employee);
     void circulateBook(std::string bookName, Date date);
     void passOn(std::string bookName, Date date);
 };

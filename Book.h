@@ -15,7 +15,7 @@ private:
     Date startDate; // Date the book begain circulating
     Date lastPassedDate; // Date the book was last passed to another employee
     Date endDate; // Date book was removed from circulation
-    PriorityQueue<Employee> employeeQueue; // Queue of employees waiting for the book
+    priorityQueue<Employee*> employeeQueue; // Queue of employees waiting for the book
 
 public:
     // Default constructor sets a blank name and sets the book to not archived
@@ -52,16 +52,13 @@ public:
 
     // Adds an employee to the book queue
     // O(n) because of priority queue push
-    void pushEmployee(Employee& employee) { employeeQueue.push(employee); }
+    void pushEmployee(Employee& employee) { employeeQueue.push(&employee); }
     // Removes the employee at the front of the book queue
     // O(1) because of priority queue pop
     void popEmployee() { employeeQueue.pop(); }
-    // Updates the given employee's data in the book queue and adjusts the queue order accordingly
-    // O(n) because of priority queue updateItem
-    void updateEmployee(Employee& employee) { employeeQueue.update_item(employee); }
     // Returns the employee at the front of the book queue
     // O(1)because of priority queue front
-    Employee frontEmployee() { return employeeQueue.front(); }
+    Employee* frontEmployee() { return employeeQueue.front(); }
     // Returns whether the book queue is empty
     //O(1) because of priority queue isEmpty
     bool isEmpty() { return (employeeQueue.isEmpty()); }
