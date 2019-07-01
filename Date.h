@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------------------
 // Taken from Date.h provided and written by Mohammad Kuhail, kuhailm@Umkc.edu
-// Alterations we done to conform to the scope of the project 
+// Alterations were done to conform to the scope of the project 
 //---------------------------------------------------------------------------------------
 #pragma once
 
