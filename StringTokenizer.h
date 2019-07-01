@@ -9,7 +9,7 @@
 /** The string_tokenizer class splits a string into a sequence of subtrings,
 called tokens, separated by delimeters.
 */
-class String_Tokenizer
+class StringTokenizer
 {
 public:
     /** Construct a String_Tokenizer
@@ -17,15 +17,15 @@ public:
     @param delim The string containing the delimeters. If
     this parameter is omitted, a space character is assumed.
     */
-    String_Tokenizer(std::string source, std::string delim = " ") :
-        the_source(source), the_delim(delim), start(0), end(0) {
-        find_next();
+    StringTokenizer(std::string source, std::string delim = " ") :
+        source(source), delim(delim), start(0), end(0) {
+        findNext();
     }
 
     /** Determine if there are more tokens
     @return true if there are more tokens
     */
-    bool has_more_tokens() {
+    bool hasMoreTokens() {
         return start != std::string::npos;
     }
 
@@ -33,16 +33,16 @@ public:
     @return the next token. If there are no more
     tokens, an empty string is returned
     */
-    std::string next_token() {
+    std::string nextToken() {
         // Make sure there is a next token
-        if (!has_more_tokens())
+        if (!hasMoreTokens())
             return "";
         // Save the next token in return_value
         /*<snippet id="3" omit="false">*/
-        std::string token = the_source.substr(start, end - start);
+        std::string token = source.substr(start, end - start);
         /*</snippet>*/
         // Find the following token
-        find_next();
+        findNext();
         // Return the next token
         return token;
     }
@@ -51,21 +51,21 @@ private:
     /** Position start and end so that start is the index of the start
     of the next token and end is the end.
     */
-    void find_next() {
+    void findNext() {
         // Find the first character that is not a delimeter
         /*<snippet id="1" omit="false">*/
-        start = the_source.find_first_not_of(the_delim, end);
+        start = source.find_first_not_of(delim, end);
         /*</snippet>*/
         // Find the next delimeter
         /*<snippet id="2" omit="false">*/
-        end = the_source.find_first_of(the_delim, start);
+        end = source.find_first_of(delim, start);
         /*</snippet>*/
     }
 
     /** The string to be split into tokens */
-    std::string the_source;
+    std::string source;
     /** The string of delimeters */
-    std::string the_delim;
+    std::string delim;
     /** The index of the start of the next token */
     size_t start;
     /** The index of the end of the next token*/

@@ -52,22 +52,22 @@ public:
     /* parse a date according to a given format*/
     static Date parseDate(const std::string& date, DateFormat format) {
 
-        String_Tokenizer st(date, "-/,");
+        StringTokenizer st(date, "-/,");
         int year = 1, month = 1, day = 1;
 
         int index = 0;
-        while (st.has_more_tokens()) {
+        while (st.hasMoreTokens()) {
             switch (format) {
             case DateFormat::Standard: //standard format: year month day
                 switch (index) {
                 case 0:
-                    std::istringstream(st.next_token()) >> year;
+                    std::istringstream(st.nextToken()) >> year;
                     break;
                 case 1:
-                    std::istringstream(st.next_token()) >> month;
+                    std::istringstream(st.nextToken()) >> month;
                     break;
                 case 2:
-                    std::istringstream(st.next_token()) >> day;
+                    std::istringstream(st.nextToken()) >> day;
                     break;
                 }
                 break;
@@ -75,13 +75,13 @@ public:
             case DateFormat::US: //US format: month day year
                 switch (index) {
                 case 0:
-                    std::istringstream(st.next_token()) >> month;
+                    std::istringstream(st.nextToken()) >> month;
                     break;
                 case 1:
-                    std::istringstream(st.next_token()) >> day;
+                    std::istringstream(st.nextToken()) >> day;
                     break;
                 case 2:
-                    std::istringstream(st.next_token()) >> year;
+                    std::istringstream(st.nextToken()) >> year;
                     break;
                 }
             }
@@ -303,5 +303,4 @@ private:
     int month;
     int day;
     DateFormat format;
-
 };

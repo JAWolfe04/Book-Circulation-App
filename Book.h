@@ -15,7 +15,7 @@ private:
     Date startDate; // Date the book begain circulating
     Date lastPassedDate; // Date the book was last passed to another employee
     Date endDate; // Date book was removed from circulation
-    priority_queue<Employee> employeeQueue; // Queue of employees waiting for the book
+    PriorityQueue<Employee> employeeQueue; // Queue of employees waiting for the book
 
 public:
     // Default constructor sets a blank name and sets the book to not archived

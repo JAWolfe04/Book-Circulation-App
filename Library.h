@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Date.h"
 #include "Book.h"
 #include "Employee.h"
@@ -7,20 +6,20 @@
 #include <list>
 #include <string>
 
+// Manages books in circulation, archived books and employees in the system
 class Library
 {
 private:
-    std::list<Book> circulated_books;
-    std::list<Book> archived_books;
-    std::list<Employee> employees;
+    std::list<Book> circulatedBooks; // List of books in circulation
+    std::list<Book> archivedBooks; // List of archived books
+    std::list<Employee> employees; // List of employees in the library system
 
 public:
-    void add_book(std::string book_name);
-    void add_employee(std::string employee_name);
+    void addBook(std::string bookName);
+    void addEmployee(std::string employeeName);
 
-    Book* get_book(std::string book_name);
-    Employee* get_employee(Employee& employee);
-    void circulate_book(std::string book_name, Date date);
-    void pass_on(std::string book_name, Date date);
+    Book* getBook(std::string bookName);
+    Employee* getEmployee(Employee& employee);
+    void circulateBook(std::string bookName, Date date);
+    void passOn(std::string bookName, Date date);
 };
-
