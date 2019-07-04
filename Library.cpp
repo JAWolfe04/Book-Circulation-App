@@ -5,58 +5,57 @@
 #include <string>
 #include <list>
 
-//Adds new book to the list of circulated books
-//Efficiency: O(n) (see priority queue)
 void Library::addBook(std::string bookName)
 {
     circulatedBooks.push_back(Book(bookName));
 }
 
-//Efficiency: O(n) (see priority queue)
-//Adds new employee to the employee list
 void Library::addEmployee(std::string employeeName)
 {
     employees.push_back(Employee(employeeName));
 }
 
-//Searches the circulated book list for a book and returns a pointer to it if found
-//Efficiency: O(n) (the iterator goes through n books to find the book)
 Book* Library::getBook(std::string bookName)
 {
+    // Searches through books in the library to find the first book with the matching name
     std::list<Book>::iterator itr = find(circulatedBooks.begin(), circulatedBooks.end(), bookName);
 
+    // In the event, no book was found return an error
     if (itr == circulatedBooks.end())
         throw std::exception("No book of that name found");
+    // Otherwise return the found book
     else
         return &(*itr);
 }
 
-//Puts book in circulation by setting the start date and adding all employees to the book's queue
-//Efficiency: O(n)
 void Library::circulateBook(std::string book_name, Date date)
 {
+    // Get book with given name and set its circulation
+    // start date and last passed on date to the given date
     Book* book = getBook(book_name);
     book->setStartDate(date);
     book->setLastPassedDate(date);
 
+    // Add all employees in the library system to the book queue
     std::list<Employee>::iterator itr = employees.begin();
     for (itr; itr != employees.end(); ++itr)
         book->pushEmployee(*itr);
 }
 
-//Passes book from one employee to the next
-//Efficiency: O(n)
 void Library::passOn(std::string book_name, Date date)
 {
+    // Get book with given name
     Book* book = getBook(book_name);
+
+    // Get employee in the front of the queue and remove them from the queue
     Employee* front = book->frontEmployee();
     book->popEmployee();
 
-    //update retaining time for employee who last had book
+    // Update retaining time for employee who last had book
     front->setRetainingTime((date - book->getLastPassDate()) + front->getRetainingTime());
     book->setLastPassedDate(date);
 
-    //if book's queue is empty, archive the book and exit
+    // If book's queue is empty, archive the book and exit
     if (book->isEmpty()) {
         book->archive();
         book->setEndDate(date);
@@ -65,7 +64,7 @@ void Library::passOn(std::string book_name, Date date)
         return;
     }
 
-    //Set new front employee's wait time and update in each book
+    // Update next front employee's wait time
     front = book->frontEmployee();
     front->setWaitTime((date - book->getStartDate()) + front->getWaitTime());
 }
